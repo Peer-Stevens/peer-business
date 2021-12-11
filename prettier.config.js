@@ -1,5 +1,4 @@
 module.exports = {
-	useTabs: false,
 	arrowParens: "avoid",
 	bracketSpacing: true,
 	embeddedLanguageFormatting: "auto",
