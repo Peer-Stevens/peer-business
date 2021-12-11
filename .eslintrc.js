@@ -54,7 +54,7 @@ module.exports = {
     ],
     "no-debugger": "error",
     "no-var": "error",
-    "eqeqeq": "error",
+    eqeqeq: "error",
     "no-restricted-properties": [
       "error",
       {
