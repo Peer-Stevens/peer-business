@@ -1,4 +1,4 @@
-const About = () => (
+const ContactUs = () => (
   <>
     <p>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione fuga
@@ -15,7 +15,7 @@ const About = () => (
   </>
 );
 
-About.title = "About";
-About.description = "Lorem ipsum";
+ContactUs.title = "Contact Us";
+ContactUs.Description = "Contact Us";
 
-export default About;
+export default ContactUs;
