@@ -4,11 +4,10 @@ import { useSearchPlaces } from "../hooks/useSearchPlaces";
 
 const Index = (): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [zip, setZip] = useState("");
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { places, loading } = useSearchPlaces({
-    searchText: searchTerm + " " + zip,
+    searchText: searchTerm,
   });
 
   return (
@@ -19,20 +18,59 @@ const Index = (): JSX.Element => {
             e.preventDefault();
             /* eslint-disable */
             // @ts-ignore
-            setSearchTerm(e.target["search"].value);
-            // @ts-ignore
-            setZip(e.target["zip"].value);
+            const formValues = e.target as {
+              search: HTMLInputElement,
+              zip: HTMLInputElement,
+              street: HTMLInputElement,
+              city: HTMLInputElement,
+              state: HTMLInputElement,
+            }
+            setSearchTerm(
+              formValues["search"].value + " " +
+              formValues["street"].value + ", " +
+              formValues["city"].value + ", " +
+              formValues["state"].value + " " +
+              formValues["zip"].value
+            )
             /* eslint-enable */
           }}
-          // className="grid grid-cols-2"
+          className="grid grid-cols-2"
         >
-          <label htmlFor={"search"}>
+          <label htmlFor={"search"} className="col-span-2">
             Name:
             <input
               className="border-2 border-gray-600 rounded-lg max-w-full w-full bg-white h-10 px-5 mb-5 text-sm focus:outline-none"
-              type="search"
+              type="text"
               name="search"
               placeholder="Search"
+            />
+          </label>
+          <label htmlFor={"street"} className="mr-2">
+            Street Address:
+            <input
+              className="border-2 border-gray-600 bg-white max-w-full w-full h-10 px-5 mb-4 rounded-lg text-sm focus:outline-none"
+              type="text"
+              name="street"
+              placeholder="Street Address"
+            />
+          </label>
+          <label htmlFor={"city"}>
+            City:
+            <input
+              className="border-2 border-gray-600 bg-white max-w-full w-full h-10 px-5 mb-4 rounded-lg text-sm focus:outline-none"
+              type="text"
+              name="city"
+              placeholder="City"
+            />
+          </label>
+          <label htmlFor={"state"} className="mr-2">
+            State
+            <input
+              className="border-2 border-gray-600 bg-white max-w-full w-full h-10 px-5 mb-4 rounded-lg text-sm focus:outline-none"
+              type="text"
+              name="state"
+              placeholder="State (abbr.)"
+              maxLength={2}
             />
           </label>
           <label htmlFor={"zip"}>
@@ -46,7 +84,7 @@ const Index = (): JSX.Element => {
           </label>
           <button
             type="submit"
-            className="border-2 border-gray-600 p-2.5 rounded-md w-full hover:shadow-md transition-all text-black"
+            className="border-2 border-gray-600 p-2.5 rounded-md w-full col-span-2 hover:shadow-md transition-all text-black"
           >
             🔎 Search
           </button>
