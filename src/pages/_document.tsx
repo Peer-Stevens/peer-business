@@ -7,7 +7,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang={AppConfig.locale}>
-        <Head />
+        <Head>
+          <script src="newrelic-frontend.js" />
+        </Head>
         <body>
           <Main />
           <NextScript />
