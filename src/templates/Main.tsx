@@ -15,36 +15,13 @@ const Main = (props: IMainProps) => (
 
     <div className="max-w-screen-md mx-auto">
       <div className="border-b border-gray-300">
-        <div className="pt-16 pb-8">
-          <div className="font-bold text-3xl text-gray-900">
-            {AppConfig.title}
+        <div className="pt-16 pb-4">
+          <div>
+            <Link href="/">
+              <a className="font-bold text-3xl text-black">{AppConfig.title}</a>
+            </Link>
           </div>
           <div className="text-xl">{AppConfig.description}</div>
-        </div>
-        <div>
-          <ul className="flex flex-wrap text-xl">
-            <li className="mr-6">
-              <Link href="/">
-                <a className="text-black border-none hover:text-gray-900">
-                  Find Places
-                </a>
-              </Link>
-            </li>
-            <li className="mr-6">
-              <Link href="/about/">
-                <a className="text-black border-none hover:text-gray-900">
-                  About
-                </a>
-              </Link>
-            </li>
-            <li className="mr-6">
-              <Link href="/contact-us/">
-                <a className="text-black border-none hover:text-gray-900">
-                  Contact Us
-                </a>
-              </Link>
-            </li>
-          </ul>
         </div>
       </div>
 

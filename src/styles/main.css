@@ -12,10 +12,14 @@ a:hover {
 
 @tailwind utilities;
 
-.content p {
+.content ul {
 	@apply my-6;
 }
 
-.content ul {
-	@apply my-6;
+a {
+  margin-bottom: 2px;
+}
+
+a:hover {
+  margin-bottom: 1px;
 }
