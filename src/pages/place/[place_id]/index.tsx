@@ -34,9 +34,12 @@ const getColorFromFromFillPct = (fillPct: number) => {
   }
 };
 
-const PlacePage = (): JSX.Element => {
+const PlacePage = (): JSX.Element | null => {
   const { query } = useRouter();
-  const { data, error } = useSWR(
+  const { data, error } = useSWR<
+    { placeDetails: { results: any; accessibilityData: any } }, // TODO change to correct types when packag is available
+    any
+  >(
     query.place_id &&
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/getPlaceDetails/${
         query.place_id as string
@@ -140,6 +143,7 @@ const PlacePage = (): JSX.Element => {
             })}
       </div>
     );
+  else return null;
 };
 
 PlacePage.title = "Place Page";
