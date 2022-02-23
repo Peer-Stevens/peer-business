@@ -9,7 +9,7 @@ const fetcher = (...args: Parameters<typeof fetch>) =>
   fetch(...args).then(res => res.json());
 
 const fieldsToNames = {
-  guideDogAvg: "Guide Dog Friendliness",
+  avgGuideDogFriendly: "Guide Dog Friendliness",
   isMenuAccessibleAvg: "Menu Accessibility",
   noiseLevelAvg: "Noise Level",
   lightingAvg: "Lighting",
@@ -122,7 +122,7 @@ const PlacePage = (): JSX.Element | null => {
                       <Link href={`/resources/${attr}`}>
                         <a
                           className={`${
-                            fillPct < 25
+                            fillPct > 0 && fillPct < 25
                               ? "text-red-600 font-bold"
                               : "text-gray-500"
                           }`}
