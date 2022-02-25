@@ -1,6 +1,6 @@
+import { PlaceDetailsResponse } from "../hooks/useGetPlaceById";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactChild } from "react";
 
 type PlaceSubpaths = "promotions" | "recommendations" | "notifications";
 
@@ -8,11 +8,10 @@ const linkClass =
   "text-black border-b-black border-b-2 hover:pb-2 hover:border-b-black";
 
 export const PlacePageLayout: React.FC<{
-  place: any;
+  place: PlaceDetailsResponse;
 }> = ({ place, children }) => {
+  const gmapPlace = place.placeDetails.result;
   const router = useRouter();
-
-  console.log(router.pathname);
 
   const NavLink = ({ path, text }: { path: PlaceSubpaths; text: string }) =>
     router.pathname.includes(path) ? (
@@ -22,7 +21,7 @@ export const PlacePageLayout: React.FC<{
         href={{
           pathname: "/place/[place_id]/" + path,
           query: {
-            place_id: place.place_id,
+            place_id: gmapPlace.place_id,
           },
         }}
       >
@@ -30,23 +29,24 @@ export const PlacePageLayout: React.FC<{
       </Link>
     );
 
+  console.log(place);
   return (
     <div className="place-page">
       <div className="place-page-header grid grid-cols-2">
         <div>
-          <h1 className="font-bold text-4xl text-black">{place.name}</h1>
+          <h1 className="font-bold text-4xl text-black">{gmapPlace.name}</h1>
           <h2
             className="font-bold text-xl text-black"
             dangerouslySetInnerHTML={{
-              __html: place.adr_address,
+              __html: gmapPlace.adr_address || "",
             }}
           />
         </div>
         <div>
-          {place.geometry && (
+          {gmapPlace.geometry && (
             <img
-              src={`https://maps.googleapis.com/maps/api/staticmap?size=768x300&markers=color:black%7C${place.geometry.location.lat},${place.geometry.location.lng}&zoom=19&key=AIzaSyDr_urYOjCyJyTzMjYmeMBNChgZAUbPoqw`}
-              alt={place.name}
+              src={`https://maps.googleapis.com/maps/api/staticmap?size=768x300&markers=color:black%7C${gmapPlace.geometry.location.lat},${gmapPlace.geometry.location.lng}&zoom=19&key=AIzaSyDr_urYOjCyJyTzMjYmeMBNChgZAUbPoqw`}
+              alt={gmapPlace.name}
             />
           )}
         </div>

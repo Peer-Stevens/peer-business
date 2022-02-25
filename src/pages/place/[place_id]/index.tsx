@@ -1,12 +1,9 @@
 import { useRouter } from "next/router";
-import useSWR from "swr";
 import Link from "next/link";
+import { useGetPlaceById } from "../../../hooks/useGetPlaceById";
 
 const linkClass =
   "text-black border-b-black border-b-2 hover:pb-2 hover:border-b-black";
-
-const fetcher = (...args: Parameters<typeof fetch>) =>
-  fetch(...args).then(res => res.json());
 
 const fieldsToNames = {
   avgGuideDogFriendly: "Guide Dog Friendliness",
@@ -36,20 +33,9 @@ const getColorFromFromFillPct = (fillPct: number) => {
 
 const PlacePage = (): JSX.Element | null => {
   const { query } = useRouter();
-  const { data, error } = useSWR<
-    { placeDetails: { results: any; accessibilityData: any } }, // TODO change to correct types when packag is available
-    any
-  >(
-    query.place_id &&
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/getPlaceDetails/${
-        query.place_id as string
-      }?includeRatings=true`,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  );
-
+  const { data } = useGetPlaceById({
+    place_id: query.place_id as string | undefined,
+  });
   const place = data?.placeDetails?.result;
 
   if (place)
@@ -111,7 +97,9 @@ const PlacePage = (): JSX.Element | null => {
         {data?.placeDetails?.accessibilityData &&
           Object.entries(data.placeDetails.accessibilityData)
             .filter(([key]) => validRatingFields.includes(key))
-            .map(([attr, value]) => {
+            .map(([rawAttr, rawValue]) => {
+              const attr = rawAttr as keyof typeof fieldsToNames;
+              const value = rawValue as number;
               const fillPct =
                 attr.substring(0, 2) === "is" ? value * 100 : (value / 5) * 100;
               return (

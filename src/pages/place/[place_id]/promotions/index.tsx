@@ -1,7 +1,7 @@
 import { useGetPlaceById } from "../../../../hooks/useGetPlaceById";
-import { useRouter } from "next/router";
-import Link from "next/link";
 import { PlacePageLayout } from "../../../../layout/PlacePageLayout";
+import { useRouter } from "next/router";
+import { FormEvent } from "react";
 
 const inputStyle =
   "border-2 border-gray-600 bg-white max-w-full w-full h-10 px-5 mb-4 rounded-lg text-sm focus:outline-none";
@@ -11,19 +11,19 @@ const borderStyle = ""; //"border-dashed border-2 border-gray-800 rounded-xl p-2
 const PlacePage = (): JSX.Element | null => {
   const { query } = useRouter();
 
-  const { data, error } = useGetPlaceById({
+  const { data } = useGetPlaceById({
     place_id: query.place_id as string | undefined,
   });
 
-  const place = data?.placeDetails?.result;
+  const placeA11yData = data?.placeDetails.accessibilityData;
 
-  const submitPromotion = (e: SubmitEvent): void => {
+  const submitPromotion = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
   };
 
-  if (place)
+  if (placeA11yData)
     return (
-      <PlacePageLayout place={place}>
+      <PlacePageLayout place={data}>
         <h2 className="text-black font-bold">
           Promote your Restaurant on Peer
         </h2>
