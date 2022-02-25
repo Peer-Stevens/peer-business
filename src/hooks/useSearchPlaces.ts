@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import type { PlaceWithAccesibilityData } from "../types/place";
+import { PlaceWithAccessibilityData } from "peer-types";
 
 export const useSearchPlaces = ({
   searchText,
 }: {
   searchText: string;
 }): {
-  places: PlaceWithAccesibilityData[];
+  places: PlaceWithAccessibilityData[];
   loading: boolean;
   error: string | null;
 } => {
-  const [places, setPlaces] = useState<PlaceWithAccesibilityData[]>([]);
+  const [places, setPlaces] = useState<PlaceWithAccessibilityData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,7 +27,7 @@ export const useSearchPlaces = ({
             .replaceAll(" ", "+")}&includeRatings=true`
         );
         const data = (await response.json()) as {
-          places: PlaceWithAccesibilityData[];
+          places: PlaceWithAccessibilityData[];
         };
         setPlaces(data.places);
       } catch (error) {
