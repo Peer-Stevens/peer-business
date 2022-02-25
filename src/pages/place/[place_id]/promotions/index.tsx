@@ -17,6 +17,10 @@ const PlacePage = (): JSX.Element | null => {
 
   const place = data?.placeDetails?.result;
 
+  const submitPromotion = (e: SubmitEvent): void => {
+    e.preventDefault();
+  };
+
   if (place)
     return (
       <PlacePageLayout place={place}>
@@ -43,7 +47,7 @@ const PlacePage = (): JSX.Element | null => {
             highgest bid is $1.00, you will only be charged $1.01 per click.
           </li>
         </ul>
-        <form className="text-black">
+        <form className="text-black" onSubmit={submitPromotion}>
           <h4 className="font-semibold border-b-2 border-dashed border-gray-800 mb-2">
             Promotion Details
           </h4>
