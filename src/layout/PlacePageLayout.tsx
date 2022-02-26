@@ -25,11 +25,10 @@ export const PlacePageLayout: React.FC<{
           },
         }}
       >
-        <a className={linkClass}>Promotions</a>
+        <a className={linkClass}>{text}</a>
       </Link>
     );
 
-  console.log(place);
   return (
     <div className="place-page">
       <div className="place-page-header grid grid-cols-2">
