@@ -3,6 +3,15 @@ import { PlacePageLayout } from "../../../../layout/PlacePageLayout";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 
+type FormFieldTypes = {
+  max_cpc: { value: string };
+  monthly_budget: { value: string };
+  fullname: { value: string };
+  ccn: { value: string };
+  zipcode: { value: string };
+  cvv: { value: string };
+};
+
 const inputStyle =
   "border-2 border-gray-600 bg-white max-w-full w-full h-10 px-5 mb-4 rounded-lg text-sm focus:outline-none";
 
@@ -25,10 +34,20 @@ const PlacePage = (): JSX.Element | null => {
     e: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      max_cpc: { value: string };
-      monthly_budget: { value: string };
-    };
+    const target = e.target as typeof e.target & FormFieldTypes;
+    if (
+      !(
+        target["max_cpc"].value &&
+        target["monthly_budget"].value &&
+        target["fullname"].value &&
+        target["ccn"].value &&
+        target["zipcode"].value &&
+        target["cvv"].value
+      )
+    ) {
+      setMessage({ message: "Please fill out all fields.", type: "error" });
+      return;
+    }
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/promotePlace`,
@@ -92,6 +111,11 @@ const PlacePage = (): JSX.Element | null => {
               click.
             </li>
           </ul>
+          {message.type === "error" && (
+            <h2 className="text-black font-bold rounded-md bg-red-400 p-2">
+              {message.message}
+            </h2>
+          )}
           <form className="text-black" onSubmit={submitPromotion}>
             <h4 className="font-semibold border-b-2 border-dashed border-gray-800 mb-2">
               Promotion Details
