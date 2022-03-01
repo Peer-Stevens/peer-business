@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
-import type { PlaceWithAccesibilityData } from "../types/place";
+import type { PlaceWithAccessibilityData } from "peer-types";
+import { Place } from "@googlemaps/google-maps-services-js";
+
+export type PlaceSearchResponse = {
+  formatted_address: string;
+  geometry: Place["geometry"];
+  name: string;
+  place_id: string;
+  accessibilityData: PlaceWithAccessibilityData["accessibilityData"];
+};
 
 export const useSearchPlaces = ({
   searchText,
 }: {
   searchText: string;
 }): {
-  places: PlaceWithAccesibilityData[];
+  places: PlaceSearchResponse[];
   loading: boolean;
   error: string | null;
 } => {
-  const [places, setPlaces] = useState<PlaceWithAccesibilityData[]>([]);
+  const [places, setPlaces] = useState<PlaceSearchResponse[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,7 +36,7 @@ export const useSearchPlaces = ({
             .replaceAll(" ", "+")}&includeRatings=true`
         );
         const data = (await response.json()) as {
-          places: PlaceWithAccesibilityData[];
+          places: PlaceSearchResponse[];
         };
         setPlaces(data.places);
       } catch (error) {

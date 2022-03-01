@@ -1,8 +1,8 @@
 import React from "react";
-import type { PlaceWithAccesibilityData } from "../types/place";
 import Link from "next/link";
+import type { PlaceWithAccessibilityData } from "peer-types";
 
-export const SearchResult: React.FC<{ place: PlaceWithAccesibilityData }> = ({
+export const SearchResult: React.FC<{ place: PlaceWithAccessibilityData }> = ({
   place,
 }) => {
   return (
