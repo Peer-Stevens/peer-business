@@ -10,7 +10,7 @@ const linkClass =
 export const PlacePageLayout: React.FC<{
   place: PlaceDetailsResponse;
 }> = ({ place, children }) => {
-  const gmapPlace = place.placeDetails.result;
+  const gmapPlace = place.placeDetails;
   const router = useRouter();
 
   const NavLink = ({ path, text }: { path: PlaceSubpaths; text: string }) =>

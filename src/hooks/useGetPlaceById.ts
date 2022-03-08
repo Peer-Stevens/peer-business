@@ -1,13 +1,9 @@
 import useSWR, { SWRResponse } from "swr";
 import { fetcher } from "../utils/fetcher";
-import type { PlaceWithAccessibilityData } from "peer-types";
-import { PlaceData } from "@googlemaps/google-maps-services-js";
+import type { PlaceWithA11yData } from "peer-types";
 
 export type PlaceDetailsResponse = {
-  placeDetails: {
-    result: PlaceData;
-    accessibilityData: PlaceWithAccessibilityData["accessibilityData"];
-  };
+  placeDetails: PlaceWithA11yData;
 };
 
 export const useGetPlaceById = ({

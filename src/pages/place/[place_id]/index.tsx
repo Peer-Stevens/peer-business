@@ -36,7 +36,7 @@ const PlacePage = (): JSX.Element | null => {
   const { data } = useGetPlaceById({
     place_id: query.place_id as string | undefined,
   });
-  const place = data?.placeDetails?.result;
+  const place = data?.placeDetails;
 
   if (place)
     return (
@@ -47,7 +47,7 @@ const PlacePage = (): JSX.Element | null => {
             <h2
               className="font-bold text-xl text-black"
               dangerouslySetInnerHTML={{
-                __html: place.adr_address,
+                __html: place.adr_address || "",
               }}
             />
           </div>

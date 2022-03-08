@@ -17,7 +17,7 @@ const inputStyle =
 
 const borderStyle = ""; //"border-dashed border-2 border-gray-800 rounded-xl p-2";
 
-const PlacePage = (): JSX.Element | null => {
+const PlacePromotionPage = (): JSX.Element | null => {
   const { query } = useRouter();
   const [message, setMessage] = useState<{
     message: string;
@@ -80,7 +80,7 @@ const PlacePage = (): JSX.Element | null => {
       return (
         <PlacePageLayout place={data}>
           <h2 className="text-black font-bold rounded-md bg-green-400 p-2">
-            You purchased a promotion for {data?.placeDetails.result.name}!
+            You purchased a promotion for {data?.placeDetails.name}!
           </h2>
         </PlacePageLayout>
       );
@@ -173,12 +173,14 @@ const PlacePage = (): JSX.Element | null => {
               </label>
             </div>
 
-            <button
-              type="submit"
-              className="border-2 border-black p-2 float-right mb-10 hover:bg-black hover:text-white"
-            >
-              Purchase Promotion
-            </button>
+            <div className="text-right">
+              <button
+                type="submit"
+                className="border-2 border-black p-2 inline-block mb-10 hover:bg-black hover:text-white"
+              >
+                Purchase Promotion
+              </button>
+            </div>
           </form>
         </PlacePageLayout>
       );
@@ -186,7 +188,7 @@ const PlacePage = (): JSX.Element | null => {
   } else return null;
 };
 
-PlacePage.title = "Place Page";
-PlacePage.description = "Lorem ipsum";
+PlacePromotionPage.title = "Place Page";
+PlacePromotionPage.description = "Lorem ipsum";
 
-export default PlacePage;
+export default PlacePromotionPage;
