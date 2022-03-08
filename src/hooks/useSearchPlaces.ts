@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { PlaceWithAccessibilityData } from "peer-types";
+import type { PlaceWithA11yData } from "peer-types";
 import { Place } from "@googlemaps/google-maps-services-js";
 
 export type PlaceSearchResponse = {
@@ -7,7 +7,7 @@ export type PlaceSearchResponse = {
   geometry: Place["geometry"];
   name: string;
   place_id: string;
-  accessibilityData: PlaceWithAccessibilityData["accessibilityData"];
+  accessibilityData: PlaceWithA11yData["accessibilityData"];
 };
 
 export const useSearchPlaces = ({
